@@ -1,4 +1,4 @@
-package DigitalUnit;
+package java.DigitalUnit;
 
 /**
  * Hello world!
