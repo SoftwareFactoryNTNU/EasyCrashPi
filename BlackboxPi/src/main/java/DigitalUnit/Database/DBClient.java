@@ -1,21 +1,28 @@
 package DigitalUnit.Database;
 
+import DigitalUnit.Car.CarData;
+
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Database client class for the derby database
  */
 
-public class DBClient {
+public final class DBClient {
 
-    private Connection conn;
+    private static Connection conn;
+
+    private DBClient() {
+    }
 
     /**
      * Establises a connection to the database
      */
 
-    public void connect() {
+    public static void connect() {
         try {
             File dbfolder = new File(System.getProperty("user.home") + "/.blackbox");
             if (!dbfolder.exists()) {
@@ -28,7 +35,7 @@ public class DBClient {
         }
     }
 
-    public void createTable() {
+    public static void createTable() {
         String tableString = "CREATE TABLE MEASUREMENTS (" +
                 "ID INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
                 "(START WITH 1, INCREMENT BY 1)," +
@@ -48,4 +55,25 @@ public class DBClient {
             e.printStackTrace();
         }
     }
+
+    public static List<CarData> getAll() {
+        List<CarData> result = new ArrayList<CarData>();
+        String sql = "SELECT * FROM MEASUREMENTS";
+
+        try {
+            Statement statement = conn.createStatement();
+            if (statement.execute(sql)) {
+                ResultSet resultSet = statement.getResultSet();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    //public static void insert()
+
+    //public static void
+
 }
