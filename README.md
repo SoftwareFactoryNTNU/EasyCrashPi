@@ -4,4 +4,4 @@ mvn compile
 
 mvn package
 
-java -jar BlackboxPi-X.x-SNAPSHOT.jar to run
+java -jar uber-BlackboxPi-X.x-SNAPSHOT.jar to run
