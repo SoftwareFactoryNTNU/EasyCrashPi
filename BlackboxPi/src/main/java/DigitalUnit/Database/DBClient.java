@@ -68,6 +68,16 @@ public final class DBClient {
             Statement statement = conn.createStatement();
             if (statement.execute(sql)) {
                 ResultSet resultSet = statement.getResultSet();
+                while (resultSet.next()) {
+                    double latitude = resultSet.getDouble("LATITUDE");
+                    double longitude = resultSet.getDouble("LONGITUDE");
+                    double vehicleSpeed = resultSet.getDouble("VEHICLE_SPEED");
+                    int engineSpeed = resultSet.getInt("ENGINE_SPEED");
+                    double acceleratorPedal = resultSet.getDouble("ACCELERATOR_PEDAL");
+                    boolean breakingPedal = resultSet.getBoolean("BREAKING_PEDAL");
+                    double timestamp = ((double) (resultSet.getTimestamp("TIMESTAMP").getTime())) / 1000;
+                    result.add(new CarData(latitude, longitude, vehicleSpeed, engineSpeed, acceleratorPedal, breakingPedal, timestamp));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
