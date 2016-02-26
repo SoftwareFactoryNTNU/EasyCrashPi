@@ -1,7 +1,6 @@
-package DigitalUnit.Database;
+package digitalUnit.database;
 
-import DigitalUnit.Car.CarData;
-import DigitalUnit.Car.JsonData;
+import digitalUnit.car.CarData;
 
 import java.io.File;
 import java.sql.*;

@@ -1,4 +1,4 @@
-package DigitalUnit;
+package digitalUnit;
 
 /**
  * BlackboxPI main class
