@@ -4,18 +4,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import DigitalUnit.Car.CarListener;
 import com.google.gson.Gson;
-
-/**
- *
- */
 
 public class CarSimulator implements Runnable {
 
     private CarListener carListener;
     private File jsonFile;
-    private List<CarData> carDataList = new ArrayList<>();
+    private List<JsonData> jsonDataList = new ArrayList<>();
 
     public CarSimulator(CarListener carListener, String datasetLocation) {
         this.carListener = carListener;
@@ -32,8 +27,8 @@ public class CarSimulator implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(jsonFile));
             String in;
             while ((in = bufferedReader.readLine()) != null) {
-                CarData carData = gson.fromJson(in, CarData.class);
-                carDataList.add(carData);
+                JsonData jsonData = gson.fromJson(in, JsonData.class);
+                jsonDataList.add(jsonData);
             }
         } catch (IOException e) {
             e.printStackTrace();
