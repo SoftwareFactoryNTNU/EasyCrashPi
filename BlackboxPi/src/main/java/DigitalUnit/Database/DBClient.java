@@ -1,6 +1,7 @@
 package DigitalUnit.Database;
 
 import DigitalUnit.Car.CarData;
+import DigitalUnit.Car.JsonData;
 
 import java.io.File;
 import java.sql.*;
@@ -12,6 +13,9 @@ import java.util.List;
  */
 
 public final class DBClient {
+
+    private static final String INSERT_DATA_STRING = "INSERT INTO MEASUREMENTS (LATITUDE, LONGITUDE, VEHICLE_SPEED, ENGINE_SPEED, ACCELERATOR_PEDAL, BREAKING_PEDAL, TIMESTMP) " +
+                                                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     private static Connection conn;
 
@@ -57,7 +61,7 @@ public final class DBClient {
     }
 
     public static List<CarData> getAll() {
-        List<CarData> result = new ArrayList<CarData>();
+        List<CarData> result = new ArrayList<>();
         String sql = "SELECT * FROM MEASUREMENTS";
 
         try {
@@ -72,8 +76,21 @@ public final class DBClient {
         return result;
     }
 
-    //public static void insert()
-
-    //public static void
+    public static void insert(CarData carData) {
+        try {
+            PreparedStatement insertCarData = conn.prepareStatement(INSERT_DATA_STRING);
+            insertCarData.setDouble(1, carData.getLatitude());
+            insertCarData.setDouble(2, carData.getLongitude());
+            insertCarData.setDouble(3, carData.getVehicleSpeed());
+            insertCarData.setInt(4, carData.getEngineSpeed());
+            insertCarData.setDouble(5, carData.getAcceleratorPedal());
+            insertCarData.setBoolean(6, carData.isBreakingPedal());
+            long millis = (long) (carData.getTimestamp() * 1000);
+            insertCarData.setTimestamp(7, new Timestamp(millis));
+            insertCarData.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
