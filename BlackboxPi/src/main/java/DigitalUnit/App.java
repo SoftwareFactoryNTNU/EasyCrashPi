@@ -1,9 +1,5 @@
 package DigitalUnit;
 
-import DigitalUnit.Database.DBClient;
-
-import java.io.File;
-
 /**
  * BlackboxPI main class
  *
@@ -16,7 +12,6 @@ public class App {
      */
 
     public static void main( String[] args ) {
-        DBClient db = new DBClient();
-        db.connect();
+
     }
 }
