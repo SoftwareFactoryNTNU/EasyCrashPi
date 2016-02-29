@@ -3,6 +3,7 @@ package DigitalUnit.server;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import com.google.gson.Gson;
 
@@ -18,7 +19,7 @@ public class GsonCollection
 	
 	public GsonCollection(Collection<GsonLine> lines)
 	{
-		lines.removeAll(null);
+		lines.removeAll(Collections.singleton(null));
 		this.lines.addAll(lines);
 	}
 	
