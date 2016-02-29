@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HttpConnection 
@@ -13,17 +12,28 @@ public class HttpConnection
 	private URL url;
 	private HttpURLConnection connection;
 	
+	
+	/*
+	 * Constructor creates connection to servers api endpoint
+	 */
 	public HttpConnection(String url) throws IOException
 	{
 		this.url = new URL(url);
 		
 		this.connection = (HttpURLConnection) this.url.openConnection();
-		
+		connection.setRequestProperty("Content-Type","application/json");
+		connection.setRequestProperty("Accept","application/json");
 		connection.setRequestMethod("POST");
-		connection.setRequestProperty("User-Agent", "Mozilla/5.0");
-		connection.addRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		
 		connection.setDoOutput(true);
 	}
+	
+	/*
+	 * Posts json data to server api endpoint associated with this object.
+	 * 
+	 * @param JSON object on string form
+	 * @return response from server
+	 */
 	public String post(String urlParameters) throws IOException
 	{
 		
@@ -40,7 +50,6 @@ public class HttpConnection
 			response.append(inputLine);
 		}
 		in.close();
-		
 		return response.toString();
 	}
 	

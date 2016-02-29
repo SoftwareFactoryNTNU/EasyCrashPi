@@ -1,72 +1,73 @@
 package DigitalUnit.server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import com.google.gson.Gson;
 
+/*
+ * Class that handles to connections to all server endpoints, 
+ * and lets other services send json over http.
+ */
 public class HttpServer{
 
-	private URL url;
-	private HttpConnection server= null;
+	private HttpConnection single_line_connection= null;
+	private HttpConnection many_lines_connection = null;
 	
-	public HttpServer() throws MalformedURLException
+	
+	/*
+	 * Constructor tries to connect to server api endpoints
+	 */
+	public HttpServer()
 	{
-		this.url = new URL("http://blackboxpi.com");
 		try {
-			server = new HttpConnection("http://localhost");
+			single_line_connection = new HttpConnection("http://localhost:3000/test");
+			many_lines_connection = new HttpConnection("http://localhost:3000/test");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Couldn't connect to host..");
 		}
-		
 		
 		
 	}
 	
-	public void getPage(String urlString) throws IOException
+	/*
+	 * Method that lets a service send a single line of JSON to the server
+	 * 
+	 * Used to send data recorded after crash, as sending data quickly is essential
+	 * 
+	 * @return response from server or error message
+	 */
+	public String sendLine(GsonLine line)
 	{
-		URL url = new URL(urlString);
-		HttpURLConnection connection= (HttpURLConnection)url.openConnection();
-		connection.setDoOutput(true);
-		connection.setRequestMethod("GET");
-
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(connection.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-
-		//print result
-		System.out.println(response.toString());
-		
-	}
-	
-	public boolean sendData(/*Gson gson*/) throws IOException
-	{
-		String jsonstr= "thisisnojson";
-		
-		
-		if(server!= null)
+		if(single_line_connection!= null)
 		{
-			server.post(jsonstr);
-			return true;
-			
+			try {
+				return single_line_connection.post(line.toString());
+			} catch (IOException e) {
+				return "Could not read from/write to stream";
+			}
 		}
-
-		
-		
-				
-		return false;
-		
+		return "Service not found";
 	}
+	
+	/*
+	 * Method that lets a service send large chunks of JSON objects to the server
+	 * 
+	 * Used to send data recorded before the accident.
+	 * 
+	 * @return response from server or error message
+	 */
+	public String sendLines(GsonCollection col)
+	{
+		if(many_lines_connection!= null)
+		{
+			try {
+				return many_lines_connection.post(col.toString());
+			} catch (IOException e) {
+				return "Could not read from/write to stream";
+			}
+		}
+		return "Service not found";
+	}
+	
+	
 
 }
