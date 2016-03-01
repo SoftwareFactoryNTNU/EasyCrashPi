@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import DigitalUnit.car.CarData;
+
 import com.google.gson.Gson;
 
 /*
@@ -23,11 +25,11 @@ public class GsonCollection
 		this.lines.addAll(lines);
 	}
 	
-	public GsonCollection(GsonLine[] lines)
+	public GsonCollection(CarData[] lines)
 	{
 		this(Arrays.asList(lines));
 	}
-	public void add(GsonLine line)
+	public void add(CarData line)
 	{
 		if(line!=null)
 		{
