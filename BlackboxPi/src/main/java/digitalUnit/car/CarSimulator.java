@@ -1,7 +1,8 @@
-package DigitalUnit.Car;
+package digitalUnit.car;
 
 import java.io.File;
-import DigitalUnit.Car.CarListener;
+
+import digitalUnit.car.CarListener;
 
 /**
  * Created by vegard on 16.02.16.

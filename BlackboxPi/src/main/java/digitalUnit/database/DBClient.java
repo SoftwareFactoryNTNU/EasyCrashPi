@@ -1,4 +1,4 @@
-package DigitalUnit.Database;
+package digitalUnit.database;
 
 import java.io.File;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package DigitalUnit;
+package digitalUnit;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

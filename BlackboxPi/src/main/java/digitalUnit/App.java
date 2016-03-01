@@ -1,8 +1,8 @@
-package DigitalUnit;
-
-import DigitalUnit.Database.DBClient;
+package digitalUnit;
 
 import java.io.File;
+
+import digitalUnit.database.DBClient;
 
 /**
  * BlackboxPI main class
