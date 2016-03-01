@@ -190,3 +190,5 @@ $RECYCLE.BIN/
 
 .idea
 BlackboxPi.iml
+
+*.log
