@@ -1,4 +1,4 @@
-package digitalUnit.data;
+package DigitalUnit.data;
 
 public class CarData {
 	private long timeStamp;

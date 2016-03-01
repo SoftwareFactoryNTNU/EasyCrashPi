@@ -1,10 +1,10 @@
-package digitalUnit;
+package DigitalUnit;
 
 import java.util.ArrayList;
 
-import digitalUnit.analyser.Analyser;
-import digitalUnit.data.CarData;
-import digitalUnit.database.DBClient;
+import DigitalUnit.analyser.Analyser;
+import DigitalUnit.data.CarData;
+import DigitalUnit.database.DBClient;
 
 public class WorkHandler {
 	boolean regularState = true;

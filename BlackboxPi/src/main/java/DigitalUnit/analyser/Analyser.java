@@ -1,4 +1,4 @@
-package digitalUnit.analyser;
+package DigitalUnit.analyser;
 
 public class Analyser {
 	
