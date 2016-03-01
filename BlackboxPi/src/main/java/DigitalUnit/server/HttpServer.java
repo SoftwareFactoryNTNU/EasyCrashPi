@@ -35,7 +35,7 @@ public class HttpServer{
 	 * 
 	 * @return response from server or error message
 	 */
-	public String sendLine(GsonLine line)
+	public String sendLine(CarData line)
 	{
 		if(single_line_connection!= null)
 		{

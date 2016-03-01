@@ -13,11 +13,11 @@ import com.google.gson.Gson;
 public class GsonCollection 
 {
 
-	private ArrayList<GsonLine> lines= new ArrayList<GsonLine>();
+	private ArrayList<CarData> lines= new ArrayList<CarData>();
 	
 	public GsonCollection(){}
 	
-	public GsonCollection(Collection<GsonLine> lines)
+	public GsonCollection(Collection<CarData> lines)
 	{
 		lines.removeAll(Collections.singleton(null));
 		this.lines.addAll(lines);
