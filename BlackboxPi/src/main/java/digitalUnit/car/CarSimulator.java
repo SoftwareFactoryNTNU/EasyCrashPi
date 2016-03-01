@@ -30,6 +30,7 @@ public class CarSimulator implements Runnable {
                 JsonData jsonData = gson.fromJson(in, JsonData.class);
                 jsonDataList.add(jsonData);
             }
+            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,6 +38,7 @@ public class CarSimulator implements Runnable {
 
     public static void main(String[] args) {
         CarSimulator sim = new CarSimulator(null, "res/JSON/downtown-west.json");
+        System.out.println(System.getProperty("user.home") + "/.tests");
     }
 
     @Override

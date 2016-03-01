@@ -25,20 +25,16 @@ public final class DBClient {
      * Establises a connection to the database
      */
 
-    public static void connect() {
-        try {
-            File dbfolder = new File(System.getProperty("user.home") + "/.blackbox");
-            if (!dbfolder.exists()) {
-                conn = DriverManager.getConnection("jdbc:derby:" + System.getProperty("user.home") + "/.blackbox;create = true");
-            } else {
-                conn = DriverManager.getConnection("jdbc:derby:" + System.getProperty("user.home") + "/.blackbox");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static void connect(String location) throws SQLException {
+        File dbfolder = new File(location + "/.blackbox");
+        if (!dbfolder.exists()) {
+            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.blackbox;create = true");
+        } else {
+            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.blackbox");
         }
     }
 
-    public static void createTable() {
+    public static void createTable() throws SQLException {
         String tableString = "CREATE TABLE MEASUREMENTS (" +
                 "ID INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
                 "(START WITH 1, INCREMENT BY 1)," +
@@ -50,13 +46,10 @@ public final class DBClient {
                 "BREAKING_PEDAL BOOLEAN," +
                 "TIMESTMP TIMESTAMP)";
 
-        try {
-            Statement statement = conn.createStatement();
-            statement.execute(tableString);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        Statement statement = conn.createStatement();
+        statement.execute(tableString);
+        statement.close();
     }
 
     public static List<CarData> getAll() {
