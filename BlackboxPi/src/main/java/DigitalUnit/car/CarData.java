@@ -1,4 +1,4 @@
-package digitalUnit.car;
+package DigitalUnit.car;
 
 public class CarData {
 
