@@ -1,9 +1,10 @@
-package DigitalUnit;
+package digitalUnit;
 
 import java.util.ArrayList;
 
-import DigitalUnit.Data.CarData;
-import DigitalUnit.Database.DBClient;
+import digitalUnit.analyser.Analyser;
+import digitalUnit.data.CarData;
+import digitalUnit.database.DBClient;
 
 public class WorkHandler {
 	boolean regularState = true;
@@ -25,17 +26,17 @@ public class WorkHandler {
 	
 	private void normalState(CarData data) {
 		DBClient.insert(data);
-		if (DataAnalyser.evalateData()) {
+		if (Analyser.hasCrashed()) {
 			ArrayList<CarData> dataSet = DBClient.getAll();
-			SClient.insertAll(dataSet);
+			SClient.insertLines(dataSet);
 			regularState = false;
 		}
 	}
 	
 	private void crashState(CarData data) {
 		DBClient.insert(data);
-		SClient.send(data);
-		if (DataAnalyser.hasCarStopped()) {
+		SClient.insertLine(data);
+		if (Analyser.hasCarStopped()) {
 			regularState = true;
 		}
 	}
