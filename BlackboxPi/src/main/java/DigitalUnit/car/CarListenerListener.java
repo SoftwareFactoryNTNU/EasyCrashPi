@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 public interface CarListenerListener {
 
 	
-	public void onCarData( Gson carDataObj );
+	public void onCarData( JsonData carDataObj );
 	
 	
 	
