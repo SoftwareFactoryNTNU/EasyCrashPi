@@ -19,7 +19,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>digitalUnit.App</mainClass>
+              <mainClass>DigitalUnit.App</mainClass>
             </manifest>
           </archive>
         </configuration>
