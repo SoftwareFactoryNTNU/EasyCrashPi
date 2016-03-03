@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import DigitalUnit.Utils.CarData;
+import DigitalUnit.utils.CarData;
 
 /**
  * Database client class for the derby database

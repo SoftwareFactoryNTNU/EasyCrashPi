@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import DigitalUnit.Utils.JsonData;
+import DigitalUnit.utils.JsonData;
 
 public class CarSimulator implements Runnable {
 

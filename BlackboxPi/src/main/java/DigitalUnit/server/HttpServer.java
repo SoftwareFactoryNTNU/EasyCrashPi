@@ -2,8 +2,8 @@ package DigitalUnit.server;
 
 import java.io.IOException;
 
-import DigitalUnit.Utils.CarData;
-import DigitalUnit.Utils.GsonCollection;
+import DigitalUnit.utils.CarData;
+import DigitalUnit.utils.GsonCollection;
 
 
 /*

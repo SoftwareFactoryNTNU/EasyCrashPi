@@ -2,13 +2,13 @@ package DigitalUnit;
 
 import java.util.List;
 
-import DigitalUnit.Utils.CarData;
-import DigitalUnit.Utils.GsonCollection;
 import DigitalUnit.analyser.Analyser;
 import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.DBClient;
 import DigitalUnit.server.HttpServer;
+import DigitalUnit.utils.CarData;
+import DigitalUnit.utils.GsonCollection;
 
 public class WorkHandler implements DataBufferListener{
 	boolean regularState = true;

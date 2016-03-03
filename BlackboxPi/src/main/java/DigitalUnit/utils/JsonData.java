@@ -1,4 +1,4 @@
-package DigitalUnit.Utils;
+package DigitalUnit.utils;
 
 public class JsonData {
 

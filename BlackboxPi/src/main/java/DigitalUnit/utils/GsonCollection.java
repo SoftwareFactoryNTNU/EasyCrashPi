@@ -1,4 +1,4 @@
-package DigitalUnit.Utils;
+package DigitalUnit.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
