@@ -2,6 +2,8 @@ package DigitalUnit.server;
 
 import java.io.IOException;
 
+import DigitalUnit.car.CarData;
+
 
 /*
  * Class that handles to connections to all server endpoints, 
