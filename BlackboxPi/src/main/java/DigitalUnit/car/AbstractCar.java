@@ -1,4 +1,4 @@
-package DigitalUnit.Car;
+package DigitalUnit.car;
 
 
 // Superclass for types of abstract cars
