@@ -6,4 +6,6 @@ public class CarListener {
 
     }
 
+    public void onCarData(JsonData jsonData) {
+    }
 }

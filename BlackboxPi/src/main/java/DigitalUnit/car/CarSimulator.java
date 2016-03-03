@@ -13,11 +13,18 @@ public class CarSimulator implements Runnable {
     private List<JsonData> jsonDataList = new ArrayList<>();
 
     public CarSimulator(CarListener carListener, String datasetLocation) {
+        if (carListener == null) {
+            throw new IllegalArgumentException("carListener can't be null");
+        }
+
         this.carListener = carListener;
+
         this.jsonFile = new File(datasetLocation);
 
-        if (jsonFile.exists()) {
+        if (jsonFile.exists() && datasetLocation.endsWith(".json")) {
             deserializeJSON();
+        } else {
+            throw new IllegalArgumentException("Invalid location for dataset.");
         }
     }
 
@@ -36,6 +43,7 @@ public class CarSimulator implements Runnable {
         }
     }
 
+    // For testing
     public static void main(String[] args) {
         CarSimulator sim = new CarSimulator(null, "res/JSON/downtown-west.json");
         System.out.println(System.getProperty("user.home") + "/.tests");
@@ -43,6 +51,20 @@ public class CarSimulator implements Runnable {
 
     @Override
     public void run() {
+        int index = 0;
+        double time;
+        double nextTime = jsonDataList.get(0).getTimestamp();
 
+        while (index < jsonDataList.size()) {
+            time = nextTime;
+            carListener.onCarData(jsonDataList.get(index++));
+            nextTime = jsonDataList.get(index).getTimestamp();
+
+            try {
+                Thread.sleep((long) ((nextTime - time) * 1000));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

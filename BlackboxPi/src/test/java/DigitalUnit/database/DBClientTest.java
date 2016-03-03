@@ -21,15 +21,6 @@ public class DBClientTest extends TestCase {
         super(testName);
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
     public void testCreateDatabase() {
         try {
             DBClient.connect(location);
