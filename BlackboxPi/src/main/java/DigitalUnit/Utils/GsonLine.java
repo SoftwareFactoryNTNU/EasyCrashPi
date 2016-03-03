@@ -1,4 +1,4 @@
-package DigitalUnit.server;
+package DigitalUnit.Utils;
 
 import com.google.gson.Gson;
 

@@ -1,4 +1,4 @@
-package DigitalUnit.car;
+package DigitalUnit.Utils;
 
 public class JsonData {
 

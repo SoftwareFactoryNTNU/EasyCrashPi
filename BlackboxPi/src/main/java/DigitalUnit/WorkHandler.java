@@ -2,12 +2,12 @@ package DigitalUnit;
 
 import java.util.List;
 
+import DigitalUnit.Utils.CarData;
+import DigitalUnit.Utils.GsonCollection;
 import DigitalUnit.analyser.Analyser;
-import DigitalUnit.car.CarData;
 import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.DBClient;
-import DigitalUnit.server.GsonCollection;
 import DigitalUnit.server.HttpServer;
 
 public class WorkHandler implements DataBufferListener{
@@ -45,5 +45,9 @@ public class WorkHandler implements DataBufferListener{
 		if (Analyser.hasCarStopped()) {
 			regularState = true;
 		}
+	}
+	
+	public static void main( String[] args ) {
+        WorkHandler workHandler = new WorkHandler();
 	}
 }

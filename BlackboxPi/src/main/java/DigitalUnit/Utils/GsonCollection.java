@@ -1,11 +1,9 @@
-package DigitalUnit.server;
+package DigitalUnit.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-
-import DigitalUnit.car.CarData;
 
 import com.google.gson.Gson;
 

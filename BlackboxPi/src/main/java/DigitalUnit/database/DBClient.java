@@ -1,11 +1,11 @@
 package DigitalUnit.database;
 
-import DigitalUnit.car.CarData;
-
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import DigitalUnit.Utils.CarData;
 
 /**
  * Database client class for the derby database
