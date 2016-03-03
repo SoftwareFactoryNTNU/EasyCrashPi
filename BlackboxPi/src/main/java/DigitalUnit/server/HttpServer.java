@@ -21,8 +21,10 @@ public class HttpServer{
 	public HttpServer()
 	{
 		try {
-			single_line_connection = new HttpConnection("http://localhost:3000/test");
-			many_lines_connection = new HttpConnection("http://localhost:3000/test");
+			//single_line_connection = new HttpConnection("http://localhost:3000/test");
+			single_line_connection = new HttpConnection("http://178.62.220.37/api/add_data");
+			many_lines_connection = new HttpConnection("http://178.62.220.37/api/add_bulk_data");
+			//many_lines_connection = new HttpConnection("http://localhost:3000/test");
 		} catch (IOException e) {
 			System.out.println("Couldn't connect to host..");
 		}
@@ -44,7 +46,8 @@ public class HttpServer{
 			try {
 				return single_line_connection.post(line.toString());
 			} catch (IOException e) {
-				return "Could not read from/write to stream";
+				return e.getMessage();
+				//return "Could not read from/write to stream";
 			}
 		}
 		return "Service not found";
@@ -64,7 +67,8 @@ public class HttpServer{
 			try {
 				return many_lines_connection.post(col.toString());
 			} catch (IOException e) {
-				return "Could not read from/write to stream";
+				return e.getMessage();
+				
 			}
 		}
 		return "Service not found";

@@ -1,5 +1,7 @@
 package DigitalUnit.car;
 
+import com.google.gson.Gson;
+
 public class CarData {
 
     private double latitude;
@@ -9,6 +11,7 @@ public class CarData {
     private double acceleratorPedal;
     private boolean breakingPedal;
     private double timestamp;
+    private String pi_id="123";
 
     public CarData(double latitude, double longitude, double vehicleSpeed, int engineSpeed, double acceleratorPedal, boolean breakingPedal, double timestamp) {
         this.latitude = latitude;
@@ -47,4 +50,11 @@ public class CarData {
     public double getTimestamp() {
         return timestamp;
     }
+    
+	@Override
+	public String toString() {
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
+    
 }
