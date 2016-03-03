@@ -23,7 +23,10 @@ public class DBClientTest extends TestCase {
 
     public void tearDown() throws Exception {
         super.tearDown();
-        Runtime.getRuntime().exec("rm -r " + location);
+        File f = new File(location);
+        if (f.exists()) {
+            Runtime.getRuntime().exec("rm -r " + location);
+        }
     }
 
     public void testCreateDatabase() {
