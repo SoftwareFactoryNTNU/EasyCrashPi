@@ -1,13 +1,19 @@
 package DigitalUnit;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import DigitalUnit.analyser.Analyser;
-import DigitalUnit.data.CarData;
+import DigitalUnit.car.CarData;
+import DigitalUnit.data.DataBuffer;
+import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.DBClient;
+import DigitalUnit.server.GsonCollection;
+import DigitalUnit.server.HttpServer;
 
-public class WorkHandler {
+public class WorkHandler implements DataBufferListener{
 	boolean regularState = true;
+	HttpServer server = new HttpServer();
+	DataBuffer dataBuffer = new DataBuffer(this);
 	
 	/**Called upon when a complete carData object has been created. 
 	 * Evaluates data to set system in correct state and sends data to database.
@@ -27,15 +33,15 @@ public class WorkHandler {
 	private void normalState(CarData data) {
 		DBClient.insert(data);
 		if (Analyser.hasCrashed()) {
-			ArrayList<CarData> dataSet = DBClient.getAll();
-			SClient.insertLines(dataSet);
+			List<CarData> dataSet = DBClient.getAll();
+			server.sendLines(new GsonCollection(dataSet));
 			regularState = false;
 		}
 	}
 	
 	private void crashState(CarData data) {
 		DBClient.insert(data);
-		SClient.insertLine(data);
+		server.sendLine(data);
 		if (Analyser.hasCarStopped()) {
 			regularState = true;
 		}
