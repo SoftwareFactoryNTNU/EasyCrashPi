@@ -1,5 +1,8 @@
 package DigitalUnit.data;
 
+import com.google.gson.Gson;
+
+import DigitalUnit.car.CarListener;
 import DigitalUnit.car.CarListenerListener;
 
 
@@ -8,9 +11,21 @@ public class DataBuffer implements CarListenerListener, Runnable {
 
 	
 	private CarListener carListener;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCarData(Gson carDataObj) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	
-	private JSONObject currentSampleData;
+	/*
+	//private JSONObject currentSampleData;
 	
 	
 	private DataBufferListener dataBufferListener;
@@ -19,9 +34,9 @@ public class DataBuffer implements CarListenerListener, Runnable {
 		
 		this.dataBufferListener = dataBufferListener;
 		
-		setupSampleDataObject();
+		//setupSampleDataObject();
 		
-		setupCarListener();
+		//setupCarListener();
 		
 	}
 	
@@ -44,5 +59,5 @@ public class DataBuffer implements CarListenerListener, Runnable {
 			System.out.println("car data arrived, name: " + carDataObj.toString());
 	}
 	
-	
+	*/
 }
