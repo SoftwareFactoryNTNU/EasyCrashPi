@@ -1,4 +1,4 @@
-package DigitalUnit;
+package DigitalUnit.database;
 
 import DigitalUnit.database.DBClient;
 import junit.framework.Test;
@@ -19,6 +19,11 @@ public class DBClientTest extends TestCase {
      */
     public DBClientTest( String testName ) {
         super(testName);
+    }
+
+    public void tearDown() throws Exception {
+        super.tearDown();
+        Runtime.getRuntime().exec("rm -r " + location);
     }
 
     public void testCreateDatabase() {
