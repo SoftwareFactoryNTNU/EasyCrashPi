@@ -1,4 +1,4 @@
-package CarInput;
+package DigitalUnit.car;
 
 import com.google.gson.Gson;
 
