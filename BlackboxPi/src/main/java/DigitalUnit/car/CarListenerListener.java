@@ -1,13 +1,14 @@
 package DigitalUnit.car;
 
-import com.google.gson.Gson;
+
+import DigitalUnit.utils.JsonData;
 
 
 // implement this to listen to the CarListener
 public interface CarListenerListener {
 
 	
-	public void onCarData( Gson carDataObj );
+	public void onCarData( JsonData carDataObj );
 	
 	
 	
