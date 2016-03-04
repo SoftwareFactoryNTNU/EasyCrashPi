@@ -21,12 +21,12 @@ public class WorkHandler implements DataBufferListener{
 	 * 
 	 * @param data		CarData object representing a complete line of data from the car
 	 */
-	public void processData(CarData data) {
+	public void onDataBufferData(CarData dataBufferData) {
 		if (regularState) {
-			normalState(data);
+			normalState(dataBufferData);
 		}
 		else {
-			crashState(data);
+			crashState(dataBufferData);
 		}
 	}
 	
@@ -50,4 +50,5 @@ public class WorkHandler implements DataBufferListener{
 	public static void main( String[] args ) {
         WorkHandler workHandler = new WorkHandler();
 	}
+
 }

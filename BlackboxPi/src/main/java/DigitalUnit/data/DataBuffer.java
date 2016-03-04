@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 import DigitalUnit.car.CarListenerListener;
 import DigitalUnit.car.CarListener;
@@ -81,8 +81,8 @@ public class DataBuffer implements CarListenerListener, Runnable {
 	
 	//fix with new json data object
 	private void setupSampleDataObject() {
-		 Gson gson = new Gson();
-		 String o = new String("{\"latitude\":[], \"longitude\":[],\"vehicle_speed\":[]}");
+		 //Gson gson = new Gson();
+		 //String o = new String("{\"latitude\":[], \"longitude\":[],\"vehicle_speed\":[]}");
 		 //currentSampleData = o;
 	}
 	private void setupCarListener() {
