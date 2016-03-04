@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 
 import DigitalUnit.car.CarListenerListener;
 import DigitalUnit.car.CarListener;
-import DigitalUnit.car.JsonData;
+import DigitalUnit.utils.JsonData;
 
 
 
