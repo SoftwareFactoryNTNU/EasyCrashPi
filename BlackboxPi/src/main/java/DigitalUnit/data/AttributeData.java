@@ -25,11 +25,20 @@ public abstract class AttributeData <T> {
 	public void addDataObject( Object data ) {
 		addData( (T) data );
 	}
+
 	
 	abstract public T getDataMean();
 	
 	public void clearData() {
 		data.clear();
+	}
+	
+	public int getDataSize() {
+		return data.size();
+	}
+	
+	public T getFirst() {
+		return data.get(0);
 	}
 	
 	
@@ -38,6 +47,7 @@ public abstract class AttributeData <T> {
 		for (double d : array) {
 			totalValue = d;
 		}
+		//should not return 0
 		if (array.size() == 0) {
 			return 0;
 		}
@@ -50,6 +60,7 @@ public abstract class AttributeData <T> {
 		for (int d : array) {
 			totalValue = d;
 		}
+		//should not return 0
 		if (array.size() == 0) {
 			return 0;
 		}

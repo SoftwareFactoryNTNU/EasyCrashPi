@@ -13,12 +13,11 @@ public class AttributeDataContainer {
 	private ArrayList<Integer> acceleratorPedalPostitionData = new ArrayList<>();
 	private ArrayList<Boolean> brakePedalStatusData = new ArrayList<>();
 	*/
-	
 	public final AttributeData<Double> longitudeData;
 	public final AttributeData<Double> latitudeData;
 	public final AttributeData<Integer> engineSpeedData;
-	public final AttributeData<Integer> vehicleSpeedData;
-	public final AttributeData<Integer> acceleratorPedalPostitionData;
+	public final AttributeData<Double> vehicleSpeedData;
+	public final AttributeData<Double> acceleratorPedalPostitionData;
 	public final AttributeData<Boolean> brakePedalStatusData;
 	
 	private final HashMap<DataBuffer.DataAttributes, AttributeData<?> > attributeDataMap;
@@ -43,16 +42,16 @@ public class AttributeDataContainer {
 				return super.getArrayMeanInt(super.data);
 			}
 		};
-		vehicleSpeedData = new AttributeData<Integer>() {
+		vehicleSpeedData = new AttributeData<Double>() {
 			@Override
-			public Integer getDataMean() {
-				return super.getArrayMeanInt(super.data);
+			public Double getDataMean() {
+				return super.getArrayMeanDouble(super.data);
 			}
 		};
-		acceleratorPedalPostitionData = new AttributeData<Integer>() {
+		acceleratorPedalPostitionData = new AttributeData<Double>() {
 			@Override
-			public Integer getDataMean() {
-				return super.getArrayMeanInt(super.data);
+			public Double getDataMean() {
+				return super.getArrayMeanDouble(super.data);
 			}
 		};
 		brakePedalStatusData = new AttributeData<Boolean>() {
@@ -70,6 +69,7 @@ public class AttributeDataContainer {
 
 	public void addData( DataBuffer.DataAttributes attribute, Object value ) {
 		//this is done with unchecked casting
+		
 		attributeDataMap.get(attribute).addDataObject(value);
 	}
 	

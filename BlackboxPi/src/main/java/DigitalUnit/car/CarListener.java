@@ -37,12 +37,12 @@ public class CarListener implements AbstractCarListener, Runnable {
 	}
 	
 	@Override
-	public void handleCarEvent(String jsonData) {
-		System.out.println("got car event");
+	public void handleCarEvent(JsonData jsonData) {
 		Gson gson = new Gson();
-		JsonData jsonDataObj = gson.fromJson(jsonData, JsonData.class);
+		System.out.println("[CarListener] got car event: " + jsonData.getName());
+		//JsonData jsonDataObj = gson.fromJson(jsonData, JsonData.class);
 		
-		carListenerListener.onCarData(jsonDataObj);
+		carListenerListener.onCarData(jsonData);
 	}
 	
 }
