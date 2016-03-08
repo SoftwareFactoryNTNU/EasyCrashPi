@@ -1,5 +1,7 @@
 package DigitalUnit.car;
 
+import DigitalUnit.utils.JsonData;
+
 public interface AbstractCarListener {
 
 	//Implement this to be used in CarSimulator.
@@ -8,5 +10,5 @@ public interface AbstractCarListener {
 	//CarSimulator is one type of AbstractCar.
 	
 	
-	public void handleCarEvent( String data );	
+	public void handleCarEvent( JsonData data );	
 }
