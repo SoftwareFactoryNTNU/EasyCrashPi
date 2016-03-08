@@ -189,4 +189,5 @@ $RECYCLE.BIN/
 .Trash-*
 
 .idea
-BlackboxPi.iml
+EasyCrashPi.iml
+derby.log
