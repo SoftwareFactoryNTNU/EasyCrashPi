@@ -3,7 +3,6 @@ package DigitalUnit.data;
 import DigitalUnit.car.CarListenerListener;
 
 
-
 public class DataBuffer implements CarListenerListener, Runnable {
 
 	
@@ -43,6 +42,6 @@ public class DataBuffer implements CarListenerListener, Runnable {
 	public void onCarData(JSONObject carDataObj) {
 			System.out.println("car data arrived, name: " + carDataObj.toString());
 	}
-	
-	
+
+
 }
