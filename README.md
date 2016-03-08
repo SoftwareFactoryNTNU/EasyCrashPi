@@ -1,4 +1,4 @@
-# BlackboxPi
+# EasyCrashPi
 
 mvn compile
 
