@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>DigitalUnit</groupId>
-  <artifactId>BlackboxPi</artifactId>
+  <artifactId>EasyCrashPi</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>BlackboxPi</name>
+  <name>EasyCrashPi</name>
   <url>http://maven.apache.org</url>
 
 <build>
@@ -19,7 +19,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>digitalUnit.App</mainClass>
+              <mainClass>DigitalUnit.App</mainClass>
             </manifest>
           </archive>
         </configuration>
