@@ -63,15 +63,11 @@ public class CarSimulator extends AbstractCar {
 
         while (index < jsonDataList.size()) {
             time = nextTime;
-            
-            //legger til .toString() for å gi tekstinout fra "bilen", vi er vel ikke sikre på hva vi faktisk ville fått
-            //se bort ifra kommentaren over for nå
             carListener.handleCarEvent(jsonDataList.get(index++));
             nextTime = jsonDataList.get(index).getTimestamp();
 
             try {
-            	//la inn sov minst 0
-                Thread.sleep( Math.max(( (long)((nextTime - time) * 1000) ), 0) );
+                Thread.sleep(Math.max((long)((nextTime - time) * 1000), 0));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

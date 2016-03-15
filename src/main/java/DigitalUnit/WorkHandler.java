@@ -15,8 +15,11 @@ public class WorkHandler implements DataBufferListener {
 	boolean regularState = true;
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
+
+	public static long starttime;
 	
-	WorkHandler() {
+	public WorkHandler() {
+		starttime = System.currentTimeMillis();
 		dataBuffer.run();
 	}
 	
@@ -24,7 +27,7 @@ public class WorkHandler implements DataBufferListener {
 	 * Evaluates data to set system in correct state and sends data to database.
 	 * If system recognises a crash situation it will send data to server as well
 	 * 
-	 * @param data		CarData object representing a complete line of data from the car
+	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
 		if (regularState) {
@@ -46,7 +49,7 @@ public class WorkHandler implements DataBufferListener {
 	
 	private void crashState(CarData data) {
 		DBClient.insert(data);
-		server.sendLine(data);
+		System.out.println(server.sendLine(data));
 		if (Analyser.hasCarStopped(data)) {
 			regularState = true;
 		}
@@ -55,7 +58,7 @@ public class WorkHandler implements DataBufferListener {
 	public void setRegularState(boolean state) {
 		if (!state && regularState != state) {
 			List<CarData> dataSet = DBClient.getAll();
-			server.sendLines(new GsonCollection(dataSet));
+			System.out.println(server.sendLines(new GsonCollection(dataSet)));
 		}
 		regularState = state;
 	}
@@ -64,9 +67,19 @@ public class WorkHandler implements DataBufferListener {
 		try {
 			DBClient.connect(System.getProperty("user.home"));
 		} catch (SQLException e) {
-			System.out.println("Unable to connect to database.");
 			e.printStackTrace();
 		}
+
+		try {
+			DBClient.createTable();
+		} catch (SQLException e) {
+			boolean tableExists = DBClient.tableAlreadyExists(e);
+			if (!tableExists) {
+				e.printStackTrace();
+			}
+			System.out.println("Table already exists.");
+		}
+
 		WorkHandler workHandler = new WorkHandler();
 	}
 
