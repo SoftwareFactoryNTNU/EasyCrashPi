@@ -13,7 +13,7 @@ public class HttpConnection
 	private HttpURLConnection connection;
 	
 	
-	/*
+	/**
 	 * Constructor creates connection to servers api endpoint
 	 */
 	public HttpConnection(String url) throws IOException
@@ -28,7 +28,7 @@ public class HttpConnection
 		connection.setDoOutput(true);
 	}
 	
-	/*
+	/**
 	 * Posts json data to server api endpoint associated with this object.
 	 * 
 	 * @param JSON object on string form
