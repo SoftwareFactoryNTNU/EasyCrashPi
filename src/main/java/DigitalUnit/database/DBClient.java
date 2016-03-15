@@ -32,10 +32,12 @@ public final class DBClient {
         } else {
             conn = DriverManager.getConnection("jdbc:derby:" + location + "/.blackbox");
         }
+
+        createTable();
     }
 
-    public static void createTable() throws SQLException {
-        String tableString = "CREATE TABLE MEASUREMENTS (" +
+    private static void createTable() throws SQLException {
+        String tableString = "CREATE TABLE IF NOT EXISTS MEASUREMENTS (" +
                 "ID INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY" +
                 "(START WITH 1, INCREMENT BY 1)," +
                 "LATITUDE DOUBLE," +

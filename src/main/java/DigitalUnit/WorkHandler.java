@@ -1,5 +1,6 @@
 package DigitalUnit;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import DigitalUnit.analyser.Analyser;
@@ -48,7 +49,13 @@ public class WorkHandler implements DataBufferListener{
 	}
 	
 	public static void main( String[] args ) {
-        WorkHandler workHandler = new WorkHandler();
+		try {
+			DBClient.connect(System.getProperty("user.home"));
+		} catch (SQLException e) {
+			System.out.println("Unable to connect to database.");
+			e.printStackTrace();
+		}
+		WorkHandler workHandler = new WorkHandler();
 	}
 
 }
