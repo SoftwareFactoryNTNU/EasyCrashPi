@@ -76,6 +76,8 @@ public class WorkHandler implements DataBufferListener {
 			boolean tableExists = DBClient.tableAlreadyExists(e);
 			if (!tableExists) {
 				e.printStackTrace();
+			} else {
+				DBClient.removeAll();
 			}
 			System.out.println("Table already exists.");
 		}

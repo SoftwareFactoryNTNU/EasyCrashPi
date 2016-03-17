@@ -52,6 +52,16 @@ public final class DBClient {
         statement.close();
     }
 
+    public static void removeAll() {
+	String sql = "DELETE FROM MEASUREMENTS WHERE 1=1"
+	try {
+		Statement s = conn.createStatement();
+		statement.execute(sql);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+    }
+
     public static List<CarData> getAll() {
         List<CarData> result = new ArrayList<>();
         String sql = "SELECT * FROM MEASUREMENTS";
