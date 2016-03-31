@@ -5,7 +5,7 @@ import java.util.List;
 import DigitalUnit.analyser.Analyser;
 import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
-import DigitalUnit.database.DBClient;
+import DigitalUnit.database.CarDataMemory;
 import DigitalUnit.server.HttpServer;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.GsonCollection;
@@ -14,6 +14,7 @@ public class WorkHandler implements DataBufferListener {
 	boolean regularState = true;
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
+	CarDataMemory carDataMemory = new CarDataMemory();
 	
 	WorkHandler() {
 		dataBuffer.run();
@@ -35,16 +36,16 @@ public class WorkHandler implements DataBufferListener {
 	}
 	
 	private void normalState(CarData data) {
-		DBClient.insert(data);
+		carDataMemory.insert(data);
 		if (Analyser.hasCrashed()) {
-			List<CarData> dataSet = DBClient.getAll();
+			List<CarData> dataSet = carDataMemory.getAll();
 			server.sendLines(new GsonCollection(dataSet));
 			regularState = false;
 		}
 	}
 	
 	private void crashState(CarData data) {
-		DBClient.insert(data);
+		carDataMemory.insert(data);
 		server.sendLine(data);
 		if (Analyser.hasCarStopped(data)) {
 			regularState = true;
@@ -53,7 +54,7 @@ public class WorkHandler implements DataBufferListener {
 	
 	public void setRegularState(boolean state) {
 		if (!state && regularState != state) {
-			List<CarData> dataSet = DBClient.getAll();
+			List<CarData> dataSet = carDataMemory.getAll();
 			server.sendLines(new GsonCollection(dataSet));
 		}
 		regularState = state;
