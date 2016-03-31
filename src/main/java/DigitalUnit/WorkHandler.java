@@ -6,7 +6,7 @@ import java.util.List;
 import DigitalUnit.analyser.Analyser;
 import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
-import DigitalUnit.database.DBClient;
+import DigitalUnit.database.CarDataMemory;
 import DigitalUnit.server.HttpServer;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.GsonCollection;
@@ -15,11 +15,9 @@ public class WorkHandler implements DataBufferListener {
 	boolean regularState = true;
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
+	CarDataMemory carDataMemory = new CarDataMemory();
 
-	public static long starttime;
-	
 	public WorkHandler() {
-		starttime = System.currentTimeMillis();
 		dataBuffer.run();
 	}
 	
@@ -39,17 +37,17 @@ public class WorkHandler implements DataBufferListener {
 	}
 	
 	private void normalState(CarData data) {
-		DBClient.insert(data);
+		carDataMemory.insert(data);
 		if (Analyser.hasCrashed()) {
-			List<CarData> dataSet = DBClient.getAll();
+			List<CarData> dataSet = carDataMemory.getAll();
 			server.sendLines(new GsonCollection(dataSet));
 			regularState = false;
 		}
 	}
 	
 	private void crashState(CarData data) {
-		DBClient.insert(data);
-		System.out.println(server.sendLine(data));
+		carDataMemory.insert(data);
+		server.sendLine(data);
 		if (Analyser.hasCarStopped(data)) {
 			regularState = true;
 		}
@@ -57,29 +55,13 @@ public class WorkHandler implements DataBufferListener {
 	
 	public void setRegularState(boolean state) {
 		if (!state && regularState != state) {
-			List<CarData> dataSet = DBClient.getAll();
-			System.out.println(server.sendLines(new GsonCollection(dataSet)));
+			List<CarData> dataSet = carDataMemory.getAll();
+			server.sendLines(new GsonCollection(dataSet));
 		}
 		regularState = state;
 	}
 	
 	public static void main( String[] args ) {
-		try {
-			DBClient.connect(System.getProperty("user.home"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			DBClient.createTable();
-		} catch (SQLException e) {
-			boolean tableExists = DBClient.tableAlreadyExists(e);
-			if (!tableExists) {
-				e.printStackTrace();
-			}
-			System.out.println("Table already exists.");
-		}
-
 		WorkHandler workHandler = new WorkHandler();
 	}
 
