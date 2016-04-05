@@ -13,6 +13,8 @@ public class CarDataTest extends TestCase {
         super(testName);
     }
 
-
+    public void testTrue() {
+        assertTrue(true);
+    }
 
 }

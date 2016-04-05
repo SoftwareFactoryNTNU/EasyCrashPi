@@ -7,7 +7,7 @@ import DigitalUnit.utils.JsonData;
 public class CarListener implements AbstractCarListener, Runnable {
 
 	
-	public static final String CAR_DATA = "res/JSON/downtown-west.json";
+	public static final String CAR_DATA = "JSON/downtown-west.json";
 	
 	
 	private AbstractCar abstractCar;
