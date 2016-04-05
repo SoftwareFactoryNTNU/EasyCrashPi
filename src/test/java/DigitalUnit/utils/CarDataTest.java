@@ -1,7 +1,18 @@
 package DigitalUnit.utils;
 
-/**
- * Created by vegard on 31.03.2016.
- */
-public class CarDataTest {
+import junit.framework.TestCase;
+
+public class CarDataTest extends TestCase {
+
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public CarDataTest( String testName ) {
+        super(testName);
+    }
+
+
+
 }
