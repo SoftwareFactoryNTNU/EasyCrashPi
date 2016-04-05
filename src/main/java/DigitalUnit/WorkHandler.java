@@ -17,6 +17,8 @@ public class WorkHandler implements DataBufferListener {
 	DataBuffer dataBuffer = new DataBuffer(this);
 	CarDataMemory carDataMemory = new CarDataMemory();
 
+	public static long starttime = 0;
+
 	public WorkHandler() {
 		dataBuffer.run();
 	}

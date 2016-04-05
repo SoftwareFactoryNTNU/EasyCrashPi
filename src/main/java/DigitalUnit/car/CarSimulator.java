@@ -1,6 +1,8 @@
 package DigitalUnit.car;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import DigitalUnit.utils.JsonData;
 public class CarSimulator extends AbstractCar {
 
     private AbstractCarListener carListener;
-    private File jsonFile;
     private List<JsonData> jsonDataList = new ArrayList<>();
 
     public CarSimulator(AbstractCarListener carListener, String datasetLocation) {
@@ -25,19 +26,27 @@ public class CarSimulator extends AbstractCar {
 
         this.carListener = carListener;
 
-        this.jsonFile = new File(datasetLocation);
+        // Load the JSON file as a resource stream
+        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+        InputStream jsonInputStream = classLoader.getResourceAsStream(datasetLocation);
 
-        if (jsonFile.exists() && datasetLocation.endsWith(".json")) {
-            deserializeJSON();
+        if (jsonInputStream != null && datasetLocation.endsWith(".json")) {
+            deserializeJSON(jsonInputStream);
         } else {
             throw new IllegalArgumentException("Invalid location for dataset.");
         }
+
+        try {
+            jsonInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void deserializeJSON() {
+    private void deserializeJSON(InputStream jsonStream) {
         Gson gson = new Gson();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(jsonFile));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(jsonStream));
             String in;
             while ((in = bufferedReader.readLine()) != null) {
                 JsonData jsonData = gson.fromJson(in, JsonData.class);
