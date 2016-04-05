@@ -1,5 +1,6 @@
 package DigitalUnit;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import DigitalUnit.analyser.Analyser;
@@ -15,8 +16,8 @@ public class WorkHandler implements DataBufferListener {
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
 	CarDataMemory carDataMemory = new CarDataMemory();
-	
-	WorkHandler() {
+
+	public WorkHandler() {
 		dataBuffer.run();
 	}
 	
@@ -24,7 +25,7 @@ public class WorkHandler implements DataBufferListener {
 	 * Evaluates data to set system in correct state and sends data to database.
 	 * If system recognises a crash situation it will send data to server as well
 	 * 
-	 * @param data		CarData object representing a complete line of data from the car
+	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
 		if (regularState) {
@@ -61,7 +62,7 @@ public class WorkHandler implements DataBufferListener {
 	}
 	
 	public static void main( String[] args ) {
-        WorkHandler workHandler = new WorkHandler();
+		WorkHandler workHandler = new WorkHandler();
 	}
 
 }

@@ -13,7 +13,8 @@ public class CarListener implements AbstractCarListener, Runnable {
 	private AbstractCar abstractCar;
 	
 	private CarListenerListener carListenerListener;
-	
+
+	private Thread thread;
 	
 	public CarListener( CarListenerListener carListenerListener ) {
 		this.carListenerListener = carListenerListener;
@@ -34,12 +35,14 @@ public class CarListener implements AbstractCarListener, Runnable {
 	@Override
 	public void run() {
 		abstractCar.run();
+		//thread = new Thread(abstractCar);
+		//thread.start();
 	}
 	
 	@Override
 	public void handleCarEvent(JsonData jsonData) {
 		Gson gson = new Gson();
-		System.out.println("[CarListener] got car event: " + jsonData.getName());
+		//System.out.println("[CarListener] got car event: " + jsonData.getName());
 		//JsonData jsonDataObj = gson.fromJson(jsonData, JsonData.class);
 		
 		carListenerListener.onCarData(jsonData);

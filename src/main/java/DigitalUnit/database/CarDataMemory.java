@@ -19,4 +19,8 @@ public class CarDataMemory
     {
         cardata.add(carData);
     }
+
+    public void removeAll() {
+        cardata.clear();
+    }
 }

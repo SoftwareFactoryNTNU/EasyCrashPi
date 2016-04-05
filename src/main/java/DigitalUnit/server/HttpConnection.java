@@ -20,12 +20,7 @@ public class HttpConnection
 	{
 		this.url = new URL(url);
 		
-		this.connection = (HttpURLConnection) this.url.openConnection();
-		connection.setRequestProperty("Content-Type","application/json");
-		connection.setRequestProperty("Accept","application/json");
-		connection.setRequestMethod("POST");
-		
-		connection.setDoOutput(true);
+
 	}
 	
 	/**
@@ -36,7 +31,13 @@ public class HttpConnection
 	 */
 	public String post(String urlParameters) throws IOException
 	{
-		
+		this.connection = (HttpURLConnection) this.url.openConnection();
+		connection.setRequestProperty("Content-Type","application/json");
+		connection.setRequestProperty("Accept","application/json");
+		connection.setRequestMethod("POST");
+
+		connection.setDoOutput(true);
+
 		DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
 		wr.writeBytes(urlParameters);
 		wr.flush();

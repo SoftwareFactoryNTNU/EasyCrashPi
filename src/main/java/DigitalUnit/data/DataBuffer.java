@@ -1,20 +1,18 @@
 package DigitalUnit.data;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 //import com.google.gson.Gson;
 
+import DigitalUnit.WorkHandler;
 import DigitalUnit.car.CarListenerListener;
 import DigitalUnit.car.CarListener;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.JsonData;
 
 
-public class DataBuffer implements CarListenerListener, Runnable {
+public class DataBuffer implements CarListenerListener {
 
 	
 	//public static enum DataType {STRING, INT, DOUBLE, BOOLEAN};
@@ -59,11 +57,11 @@ public class DataBuffer implements CarListenerListener, Runnable {
 	AttributeDataContainer attributeData;
 	
 	
-	private DataBufferListener dataBufferListener;
+	private WorkHandler dataBufferListener;
 	
 	
 	
-	public DataBuffer( DataBufferListener dataBufferListener ) {
+	public DataBuffer( WorkHandler dataBufferListener ) {
 		
 		this.dataBufferListener = dataBufferListener;
 		
@@ -72,11 +70,12 @@ public class DataBuffer implements CarListenerListener, Runnable {
 		setupCarListener();
 
 	}
-	
+
+	/*
 	public static void main( String[] args ) {
 		DataBuffer dataBuffer = new DataBuffer((CarData d)->{});
 		dataBuffer.run();
-	}
+	}*/
 	
 	//fix with new json data object
 	private void setupSampleDataObject() {
@@ -88,8 +87,6 @@ public class DataBuffer implements CarListenerListener, Runnable {
 		carListener = new CarListener( this );
 	}
 
-	
-	@Override
 	public void run() {
 		carListener.run();		
 	}
@@ -121,25 +118,30 @@ public class DataBuffer implements CarListenerListener, Runnable {
 	}
 
 	private void sendDataToListener( double timestamp ) {
-	    double latitude = attributeData.longitudeData.getFirst().doubleValue();
-	    double longitude = attributeData.latitudeData.getFirst().doubleValue();
-	    double vehicleSpeed = attributeData.vehicleSpeedData.getDataMean().doubleValue();
+	    double latitude = attributeData.longitudeData.getFirst();
+	    double longitude = attributeData.latitudeData.getFirst();
+	    double vehicleSpeed = attributeData.vehicleSpeedData.getDataMean();
 	    int engineSpeed = 0; //attributeData.engineSpeedData.getDataMean().intValue();
-	    double acceleratorPedal = attributeData.acceleratorPedalPostitionData.getDataMean().doubleValue();
+	    double acceleratorPedal = attributeData.acceleratorPedalPostitionData.getDataMean();
 	    boolean breakingPedal = false; // <-------------------------------------
 		
 	    //quickfix: swapping position of longitude and latitude, the have opposite values
 	    CarData carData = new CarData( longitude, latitude, vehicleSpeed, engineSpeed, acceleratorPedal, breakingPedal, timestamp);
 	    
-	    System.out.println("[DataBuffer] send data to listener: " + carData.toString());
-	    
+	    //System.out.println("[DataBuffer] send data to listener: " + carData.toString());
+
+		long now = System.currentTimeMillis();
+		if (now - WorkHandler.starttime > 5000) {
+			dataBufferListener.setRegularState(false);
+		}
+
 	    dataBufferListener.onDataBufferData( carData );
 	}
 	
 	
 	private void storeAttributeData( JsonData data ) {
-		System.out.println("[DataBuffer] Store attribute: " + data.getName());
-		System.out.println("[DataBuffer] Store value: " + data.getValue().toString());
+		//System.out.println("[DataBuffer] Store attribute: " + data.getName());
+		//System.out.println("[DataBuffer] Store value: " + data.getValue().toString());
 		attributeData.addData(dataStringOrdinals.get( data.getName() ), data.getValue() );
 	}
 }

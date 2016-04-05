@@ -26,11 +26,11 @@ public final class DBClient {
      */
 
     public static void connect(String location) throws SQLException {
-        File dbfolder = new File(location + "/.blackbox");
+        File dbfolder = new File(location + "/.easycrash");
         if (!dbfolder.exists()) {
-            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.blackbox;create = true");
+            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.easycrash;create = true");
         } else {
-            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.blackbox");
+            conn = DriverManager.getConnection("jdbc:derby:" + location + "/.easycrash");
         }
     }
 
@@ -67,7 +67,7 @@ public final class DBClient {
                     int engineSpeed = resultSet.getInt("ENGINE_SPEED");
                     double acceleratorPedal = resultSet.getDouble("ACCELERATOR_PEDAL");
                     boolean breakingPedal = resultSet.getBoolean("BREAKING_PEDAL");
-                    double timestamp = ((double) (resultSet.getTimestamp("TIMESTAMP").getTime())) / 1000;
+                    double timestamp = ((double) (resultSet.getTimestamp("TIMESTMP").getTime())) / 1000;
                     result.add(new CarData(latitude, longitude, vehicleSpeed, engineSpeed, acceleratorPedal, breakingPedal, timestamp));
                 }
             }
@@ -93,6 +93,12 @@ public final class DBClient {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // http://stackoverflow.com/questions/5866154/how-to-create-table-if-it-doesnt-exist-using-derby-db
+    // Answer by blo0p3r
+    public static boolean tableAlreadyExists(SQLException e) {
+        return e.getSQLState().equals("X0Y32");
     }
 
 }
