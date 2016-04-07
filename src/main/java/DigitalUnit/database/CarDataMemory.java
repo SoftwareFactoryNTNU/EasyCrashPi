@@ -23,4 +23,8 @@ public class CarDataMemory
     public void removeAll() {
         cardata.clear();
     }
+    public boolean isEmpty()
+    {
+        return cardata.isEmpty();
+    }
 }
