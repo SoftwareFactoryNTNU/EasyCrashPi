@@ -47,11 +47,7 @@ public class WorkHandler implements DataBufferListener {
 	
 	private void normalState(CarData data) {
 		carDataMemory.insert(data);
-		if (Analyser.hasCrashed()) {
-			List<CarData> dataSet = carDataMemory.getAll();
-			server.sendLines(new GsonCollection(dataSet));
-			regularState = false;
-		}
+		setRegularState(Analyser.hasCrashed());
 	}
 	
 	private void crashState(CarData data) {
@@ -63,11 +59,15 @@ public class WorkHandler implements DataBufferListener {
 	}
 	
 	public void setRegularState(boolean state) {
-		if (!state && regularState != state) {
-			List<CarData> dataSet = carDataMemory.getAll();
-			server.sendLines(new GsonCollection(dataSet));
+		if (regularState != state) {
+			if(!carDataMemory.isEmpty())
+			{
+				server.sendLines(new GsonCollection(carDataMemory.getAll()));
+				carDataMemory.removeAll();
+			}
+			regularState = state;
 		}
-		regularState = state;
+
 	}
 	
 	public static void main( String[] args ) {

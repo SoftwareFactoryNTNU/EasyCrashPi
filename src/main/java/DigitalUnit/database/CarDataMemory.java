@@ -32,4 +32,9 @@ public class CarDataMemory
     public int getSize() {
         return cardata.size();
     }
+
+    public boolean isEmpty()
+    {
+        return cardata.isEmpty();
+    }
 }
