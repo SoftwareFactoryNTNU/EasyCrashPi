@@ -24,6 +24,7 @@ public class ButtonListener {
         myButton.addListener((GpioPinListenerDigital) event -> {
             // display pin state on console
             if (event.getState() == PinState.HIGH) {
+                System.out.println("CRASH!!!");
                 workHandler.setRegularState(false);
             }
         });
