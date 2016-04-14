@@ -7,6 +7,7 @@ import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.CarDataMemory;
 import DigitalUnit.server.HttpServer;
+import DigitalUnit.utils.ButtonListener;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.GsonCollection;
 
@@ -15,10 +16,12 @@ public class WorkHandler implements DataBufferListener {
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
 	CarDataMemory carDataMemory = new CarDataMemory();
+	ButtonListener buttonListener = new ButtonListener(this);
 
 	private boolean sizeTrigger = false;
 
 	public WorkHandler() {
+		buttonListener.listen();
 		dataBuffer.run();
 	}
 	
