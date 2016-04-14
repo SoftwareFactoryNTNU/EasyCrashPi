@@ -8,7 +8,7 @@ import java.util.List;
 public class CarDataMemory
 {
 
-    public List<CarData> cardata= new ArrayList<>();
+    private List<CarData> cardata = new ArrayList<>();
 
     public List<CarData> getAll() {
 
@@ -18,9 +18,18 @@ public class CarDataMemory
     public void insert(CarData carData)
     {
         cardata.add(carData);
+        System.out.println(this.cardata.size());
     }
 
     public void removeAll() {
         cardata.clear();
+    }
+
+    public void remove(CarData cardata) {
+        this.cardata.remove(cardata);
+    }
+
+    public int getSize() {
+        return cardata.size();
     }
 }

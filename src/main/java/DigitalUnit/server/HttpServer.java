@@ -23,8 +23,8 @@ public class HttpServer{
 	{
 		try {
 			//single_line_connection = new HttpConnection("http://localhost:3000/test");
-			single_line_connection = new HttpConnection("http://37.139.21.51/api/add_data");
-			many_lines_connection = new HttpConnection("http://37.139.21.51/api/add_bulk_data");
+			single_line_connection = new HttpConnection("http://10.22.39.151:3000/api/add_data");
+			many_lines_connection = new HttpConnection("http://10.22.39.151:3000/api/add_bulk_data");
 			//many_lines_connection = new HttpConnection("http://localhost:3000/test");
 		} catch (IOException e) {
 			System.out.println("Couldn't connect to host..");

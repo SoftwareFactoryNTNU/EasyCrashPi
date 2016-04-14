@@ -19,7 +19,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>DigitalUnit.WorkHandler</mainClass>
+              <mainClass>DigitalUnit.utils.ListenGpioExample</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -78,6 +78,12 @@
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
       <version>10.12.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.pi4j</groupId>
+      <artifactId>pi4j-core</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 </project>

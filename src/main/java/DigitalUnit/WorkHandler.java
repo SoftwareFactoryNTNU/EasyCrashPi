@@ -1,6 +1,5 @@
 package DigitalUnit;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import DigitalUnit.analyser.Analyser;
@@ -17,7 +16,7 @@ public class WorkHandler implements DataBufferListener {
 	DataBuffer dataBuffer = new DataBuffer(this);
 	CarDataMemory carDataMemory = new CarDataMemory();
 
-	public static long starttime = 0;
+	private boolean sizeTrigger = false;
 
 	public WorkHandler() {
 		dataBuffer.run();
@@ -30,6 +29,11 @@ public class WorkHandler implements DataBufferListener {
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
+		if (carDataMemory.getSize() > 120 && !sizeTrigger) {
+			setRegularState(false);
+			sizeTrigger = true;
+		}
+
 		if (regularState) {
 			normalState(dataBufferData);
 		}
