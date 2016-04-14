@@ -1,6 +1,5 @@
 package DigitalUnit;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import DigitalUnit.analyser.Analyser;
@@ -8,6 +7,7 @@ import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.CarDataMemory;
 import DigitalUnit.server.HttpServer;
+import DigitalUnit.utils.ButtonListener;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.GsonCollection;
 
@@ -16,10 +16,12 @@ public class WorkHandler implements DataBufferListener {
 	HttpServer server = new HttpServer();
 	DataBuffer dataBuffer = new DataBuffer(this);
 	CarDataMemory carDataMemory = new CarDataMemory();
+	ButtonListener buttonListener = new ButtonListener(this);
 
-	public static long starttime = 0;
+	private boolean sizeTrigger = false;
 
 	public WorkHandler() {
+		buttonListener.listen();
 		dataBuffer.run();
 	}
 	
@@ -30,6 +32,11 @@ public class WorkHandler implements DataBufferListener {
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
+		if (carDataMemory.getSize() > 120 && !sizeTrigger) {
+			setRegularState(false);
+			sizeTrigger = true;
+		}
+
 		if (regularState) {
 			normalState(dataBufferData);
 		}

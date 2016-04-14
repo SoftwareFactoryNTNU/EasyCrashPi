@@ -130,11 +130,6 @@ public class DataBuffer implements CarListenerListener {
 	    
 	    //System.out.println("[DataBuffer] send data to listener: " + carData.toString());
 
-		long now = System.currentTimeMillis();
-		if (now - WorkHandler.starttime > 5000) {
-			dataBufferListener.setRegularState(false);
-		}
-
 	    dataBufferListener.onDataBufferData( carData );
 	}
 	

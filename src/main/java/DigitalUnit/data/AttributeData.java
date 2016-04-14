@@ -45,7 +45,7 @@ public abstract class AttributeData <T> {
 	protected double getArrayMeanDouble( ArrayList<Double> array ) {
 		double totalValue = 0;
 		for (double d : array) {
-			totalValue = d;
+			totalValue += d;
 		}
 		//should not return 0
 		if (array.size() == 0) {
@@ -58,7 +58,7 @@ public abstract class AttributeData <T> {
 	protected int getArrayMeanInt( ArrayList<Integer> array ) {
 		int totalValue = 0;
 		for (int d : array) {
-			totalValue = d;
+			totalValue += d;
 		}
 		//should not return 0
 		if (array.size() == 0) {
