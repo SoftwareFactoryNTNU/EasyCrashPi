@@ -19,16 +19,18 @@ public class WorkHandler implements DataBufferListener {
 	ButtonListener buttonListener = new ButtonListener(this);
 
 	private boolean sizeTrigger = false;
+	private long crashTime = 0L;
+	private final int millisAfterCrash = 1000 * 60;
 
 	public WorkHandler() {
 		buttonListener.listen();
 		dataBuffer.run();
 	}
-	
-	/**Called upon when a complete carData object has been created. 
+
+	/**Called upon when a complete carData object has been created.
 	 * Evaluates data to set system in correct state and sends data to database.
 	 * If system recognises a crash situation it will send data to server as well
-	 * 
+	 *
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
@@ -44,16 +46,17 @@ public class WorkHandler implements DataBufferListener {
 			crashState(dataBufferData);
 		}
 	}
-	
+
 	private void normalState(CarData data) {
 		carDataMemory.insert(data);
-		setRegularState(Analyser.hasCrashed());
+		setRegularState(!Analyser.hasCrashed());
 	}
-	
+
 	private void crashState(CarData data) {
 		carDataMemory.insert(data);
 		server.sendLine(data);
-		if (Analyser.hasCarStopped(data)) {
+		long now = System.currentTimeMillis();
+		if (Analyser.hasCarStopped(data) || now - crashTime > millisAfterCrash) {
 			regularState = true;
 		}
 	}
@@ -64,6 +67,7 @@ public class WorkHandler implements DataBufferListener {
 			{
 				server.sendLines(new GsonCollection(carDataMemory.getAll()));
 				carDataMemory.removeAll();
+				crashTime = System.currentTimeMillis();
 			}
 			regularState = state;
 		}
