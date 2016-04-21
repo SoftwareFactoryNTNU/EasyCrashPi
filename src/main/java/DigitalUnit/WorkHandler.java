@@ -32,10 +32,6 @@ public class WorkHandler implements DataBufferListener {
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
-		if (carDataMemory.getSize() > 120) {
-			setRegularState(false);
-			sizeTrigger = true;
-		}
 
 		if (regularState) {
 			normalState(dataBufferData);
@@ -62,7 +58,7 @@ public class WorkHandler implements DataBufferListener {
 	
 	private void normalState(CarData data) {
 		carDataMemory.insert(data);
-		setRegularState(Analyser.hasCrashed());
+		setRegularState(!Analyser.hasCrashed());
 	}
 	
 	private void crashState(CarData data) {
