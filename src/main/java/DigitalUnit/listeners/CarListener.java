@@ -1,7 +1,9 @@
-package DigitalUnit.car;
+package DigitalUnit.listeners;
 
 import com.google.gson.Gson;
 
+import DigitalUnit.car.AbstractCar;
+import DigitalUnit.car.CarSimulator;
 import DigitalUnit.utils.JsonData;
 
 public class CarListener implements AbstractCarListener, Runnable {
