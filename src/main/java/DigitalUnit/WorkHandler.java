@@ -32,7 +32,7 @@ public class WorkHandler implements DataBufferListener {
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
-		if (carDataMemory.getSize() > 120 && !sizeTrigger) {
+		if (carDataMemory.getSize() > 120) {
 			setRegularState(false);
 			sizeTrigger = true;
 		}
@@ -42,6 +42,21 @@ public class WorkHandler implements DataBufferListener {
 		}
 		else {
 			crashState(dataBufferData);
+		}
+	}
+	
+	/**Set the state of the system
+	 * 
+	 * @param state		State of the car, false = crash state, true = regular state
+	 */
+	public void setRegularState(boolean state) {
+		if (regularState != state) {
+			if(!carDataMemory.isEmpty())
+			{
+				server.sendLines(new GsonCollection(carDataMemory.getAll()));
+				carDataMemory.removeAll();
+			}
+			regularState = state;
 		}
 	}
 	
@@ -56,18 +71,6 @@ public class WorkHandler implements DataBufferListener {
 		if (Analyser.hasCarStopped(data)) {
 			regularState = true;
 		}
-	}
-	
-	public void setRegularState(boolean state) {
-		if (regularState != state) {
-			if(!carDataMemory.isEmpty())
-			{
-				server.sendLines(new GsonCollection(carDataMemory.getAll()));
-				carDataMemory.removeAll();
-			}
-			regularState = state;
-		}
-
 	}
 	
 	public static void main( String[] args ) {
