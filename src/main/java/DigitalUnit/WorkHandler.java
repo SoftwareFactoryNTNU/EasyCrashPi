@@ -6,8 +6,8 @@ import DigitalUnit.analyser.Analyser;
 import DigitalUnit.data.DataBuffer;
 import DigitalUnit.data.DataBufferListener;
 import DigitalUnit.database.CarDataMemory;
+import DigitalUnit.listeners.ButtonListener;
 import DigitalUnit.server.HttpServer;
-import DigitalUnit.utils.ButtonListener;
 import DigitalUnit.utils.CarData;
 import DigitalUnit.utils.GsonCollection;
 
@@ -34,10 +34,6 @@ public class WorkHandler implements DataBufferListener {
 	 * @param dataBufferData		CarData object representing a complete line of data from the car
 	 */
 	public void onDataBufferData(CarData dataBufferData) {
-		if (carDataMemory.getSize() > 120 && !sizeTrigger) {
-			setRegularState(false);
-			sizeTrigger = true;
-		}
 
 		if (regularState) {
 			normalState(dataBufferData);
@@ -46,7 +42,22 @@ public class WorkHandler implements DataBufferListener {
 			crashState(dataBufferData);
 		}
 	}
-
+	
+	/**Set the state of the system
+	 * 
+	 * @param state		State of the car, false = crash state, true = regular state
+	 */
+	public void setRegularState(boolean state) {
+		if (regularState != state) {
+			if(!carDataMemory.isEmpty())
+			{
+				server.sendLines(new GsonCollection(carDataMemory.getAll()));
+				carDataMemory.removeAll();
+			}
+			regularState = state;
+		}
+	}
+	
 	private void normalState(CarData data) {
 		carDataMemory.insert(data);
 		setRegularState(!Analyser.hasCrashed());
