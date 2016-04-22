@@ -18,7 +18,6 @@ public class CarSimulator extends AbstractCar {
 
     public CarSimulator(AbstractCarListener carListener, String datasetLocation) {
     	super(carListener);
-    	//Ikke bry deg om at super tar inn carListener nå, all funksjonalitet ligger i denne klassen
         
     	if (carListener == null) {
             throw new IllegalArgumentException("carListener can't be null");
@@ -43,6 +42,12 @@ public class CarSimulator extends AbstractCar {
         }
     }
 
+    /**
+     * Deserializes the JSON formatted lines and sets up the list for simulation.
+     *
+     * @param jsonStream Stream of JSON formatted lines.
+     */
+
     private void deserializeJSON(InputStream jsonStream) {
         Gson gson = new Gson();
         try {
@@ -63,6 +68,10 @@ public class CarSimulator extends AbstractCar {
         CarSimulator sim = new CarSimulator(null, "res/JSON/downtown-west.json");
         System.out.println(System.getProperty("user.home") + "/.tests");
     }*/
+
+    /**
+     * Runs the simulation.
+     */
 
     @Override
     public void run() {
