@@ -18,7 +18,6 @@ public class CarSimulator extends AbstractCar {
 
     public CarSimulator(AbstractCarListener carListener, String datasetLocation) {
     	super(carListener);
-    	//Ikke bry deg om at super tar inn carListener nå, all funksjonalitet ligger i denne klassen
         
     	if (carListener == null) {
             throw new IllegalArgumentException("carListener can't be null");
