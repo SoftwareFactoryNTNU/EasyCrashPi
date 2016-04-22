@@ -53,11 +53,13 @@ public class WorkHandler implements DataBufferListener {
 			{
 				server.sendLines(new GsonCollection(carDataMemory.getAll()));
 				carDataMemory.removeAll();
+				crashTime = System.currentTimeMillis();
 			}
 			regularState = state;
 		}
+
 	}
-	
+
 	private void normalState(CarData data) {
 		carDataMemory.insert(data);
 		setRegularState(!Analyser.hasCrashed());
@@ -70,19 +72,6 @@ public class WorkHandler implements DataBufferListener {
 		if (Analyser.hasCarStopped(data) || now - crashTime > millisAfterCrash) {
 			regularState = true;
 		}
-	}
-	
-	public void setRegularState(boolean state) {
-		if (regularState != state) {
-			if(!carDataMemory.isEmpty())
-			{
-				server.sendLines(new GsonCollection(carDataMemory.getAll()));
-				carDataMemory.removeAll();
-				crashTime = System.currentTimeMillis();
-			}
-			regularState = state;
-		}
-
 	}
 	
 	public static void main( String[] args ) {
